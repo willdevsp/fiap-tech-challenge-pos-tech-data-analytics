@@ -3,7 +3,7 @@
 
 Membros do time
 | Nome | R.A | Discord|
-----------------------
+|------|-----|---------|
 |Ana Carolina | rm352918 | - |
 |Gabriel | rm352918 |mechano2668|
 |Salomão | - | - |
