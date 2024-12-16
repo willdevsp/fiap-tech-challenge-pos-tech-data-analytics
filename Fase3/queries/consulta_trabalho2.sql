@@ -1,0 +1,43 @@
+WITH
+
+BASE_INICIAL AS ( 
+SELECT 
+
+####### VARIAVEIS NÃO SUMARIZADAS ########
+
+####### REFERÊNCIA #######
+    ANO,
+    MES,
+    CASE 
+       WHEN MES = 5  THEN '2020-05-01'
+       WHEN MES = 6  THEN '2020-06-01'
+       WHEN MES = 7  THEN '2020-07-01'
+       WHEN MES = 8  THEN '2020-08-01'
+       WHEN MES = 9  THEN '2020-09-01'
+       WHEN MES = 10 THEN '2020-10-01'
+       WHEN MES = 11 THEN '2020-11-01'
+    ELSE 'S/ INFO'
+    END AS DESC_MES,
+
+
+####### TRABALHOU HOME OFFICE SEMANA PASSADA ######## PERGUNTA 2 - TÓPICO TRABALHO  
+    CASE 
+        WHEN C013 = '1' THEN 'SIM'
+        WHEN C013 = '2' THEN 'NÃO'
+    ELSE 'S/ INFO'
+    END HO_SEMANA_PASSADA,
+
+####### VARIAVEIS  SUMARIZADAS ########
+
+####### POPULAÇÃO TRABALHANDO ######## PERGUNTA 3 - TÓPICO TRABALHO
+    COUNT(*)                                               AS QT_POPULACAO_ENTREVISTADA,
+    COUNT(CASE WHEN C013 = '1' THEN 1 ELSE 0 END)          AS QT_HO
+
+FROM `basedosdados.br_ibge_pnad_covid.microdados`
+GROUP BY ALL
+
+)
+SELECT 
+* EXCEPT(DESC_MES), 
+DATE(DESC_MES) AS DESC_MES,
+FROM BASE_INICIAL
